@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leading Before the Title — A Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23201b;
+    --ink-soft:#5a5346;
+    --paper:#f6f1e7;
+    --paper-2:#efe7d7;
+    --card:#fffdf8;
+    --line:#ddd2bd;
+    --terra:#c25e3a;        /* warm accent — the "title" / management hue */
+    --teal:#2f6f6b;         /* leadership hue */
+    --teal-deep:#1f4f4c;
+    --gold:#caa14a;
+    --shadow:0 1px 2px rgba(40,30,15,.06),0 8px 28px rgba(40,30,15,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 85% -10%, rgba(47,111,107,.18), transparent 60%),
+      radial-gradient(100% 80% at 0% 110%, rgba(194,94,58,.14), transparent 55%),
+      var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:820px;margin:0 auto;padding:74px 22px 60px}
+  .eyebrow{
+    font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--teal-deep);font-weight:600;margin:0 0 18px
+  }
+  h1{
+    font-family:"Fraunces",serif;font-weight:500;
+    font-size:clamp(2.3rem,6.4vw,3.7rem);line-height:1.02;
+    letter-spacing:-.01em;margin:0 0 8px;color:var(--ink)
+  }
+  h1 .ital{font-style:italic;color:var(--teal-deep)}
+  .dek{font-size:1.12rem;color:var(--ink-soft);max-width:54ch;margin:18px 0 0}
+  .for-line{
+    margin-top:30px;font-size:.86rem;color:var(--ink-soft);
+    display:flex;align-items:center;gap:10px
+  }
+  .for-line .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:54px 0}
+  .lede{font-family:"Fraunces",serif;font-size:1.45rem;line-height:1.4;font-weight:400;color:var(--ink);margin:0 0 22px}
+  p{margin:0 0 18px}
+  .sec-label{
+    font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;
+    font-weight:600;color:var(--terra);margin:0 0 14px;
+    display:flex;align-items:center;gap:12px
+  }
+  .sec-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  h2{font-family:"Fraunces",serif;font-weight:500;font-size:1.9rem;line-height:1.1;margin:0 0 20px;letter-spacing:-.01em}
+  h3{font-family:"Fraunces",serif;font-weight:500;font-size:1.3rem;margin:0 0 8px}
+
+  /* compare card */
+  .compare{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    background:var(--card);box-shadow:var(--shadow);margin:8px 0 6px
+  }
+  .compare > div{padding:24px 22px}
+  .compare .mgr{background:linear-gradient(180deg,rgba(194,94,58,.07),transparent)}
+  .compare .ldr{background:linear-gradient(180deg,rgba(47,111,107,.08),transparent);border-left:1px solid var(--line)}
+  .compare .tag{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+  .compare .mgr .tag{color:var(--terra)}
+  .compare .ldr .tag{color:var(--teal)}
+  .compare ul{margin:0;padding-left:18px}
+  .compare li{margin-bottom:9px;font-size:.96rem;color:var(--ink-soft)}
+  .compare li b{color:var(--ink);font-weight:600}
+  .overlap-note{font-size:.9rem;color:var(--ink-soft);text-align:center;margin:16px 0 0;font-style:italic}
+
+  /* pull quote */
+  .pq{
+    border-left:3px solid var(--gold);padding:6px 0 6px 22px;margin:30px 0;
+    font-family:"Fraunces",serif;font-size:1.3rem;line-height:1.35;font-style:italic;color:var(--ink)
+  }
+  .pq cite{display:block;font-family:"Inter";font-style:normal;font-size:.82rem;color:var(--ink-soft);margin-top:10px;letter-spacing:.02em}
+
+  /* ---------- QUIZ ---------- */
+  .quiz-shell{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:30px 26px 26px}
+  .quiz-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px;gap:14px}
+  .qcount{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+  .qtype{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:99px}
+  .qtype.mc{background:rgba(47,111,107,.12);color:var(--teal-deep)}
+  .qtype.tf{background:rgba(194,94,58,.13);color:var(--terra)}
+  .pbar{height:5px;background:var(--paper-2);border-radius:99px;overflow:hidden;margin:14px 0 22px}
+  .pbar > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .4s ease}
+  .qtext{font-family:"Fraunces",serif;font-size:1.5rem;line-height:1.28;margin:0 0 22px;font-weight:500}
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{
+    text-align:left;font:inherit;font-size:1rem;color:var(--ink);
+    background:var(--paper);border:1.5px solid var(--line);border-radius:13px;
+    padding:15px 17px;cursor:pointer;transition:.18s;display:flex;gap:13px;align-items:flex-start
+  }
+  .opt:hover{border-color:var(--teal);background:#fff;transform:translateY(-1px)}
+  .opt:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .opt .key{
+    flex:none;width:26px;height:26px;border-radius:8px;background:var(--card);
+    border:1.5px solid var(--line);display:grid;place-items:center;
+    font-size:.82rem;font-weight:600;color:var(--ink-soft);margin-top:1px
+  }
+  .opt.tf .key{border-radius:50%}
+  .opt.correct{border-color:var(--teal);background:rgba(47,111,107,.09)}
+  .opt.correct .key{background:var(--teal);border-color:var(--teal);color:#fff}
+  .opt.wrong{border-color:var(--terra);background:rgba(194,94,58,.08)}
+  .opt.wrong .key{background:var(--terra);border-color:var(--terra);color:#fff}
+  .opt.dim{opacity:.5}
+  .opt[disabled]{cursor:default}
+  .feedback{
+    margin-top:18px;padding:16px 18px;border-radius:13px;background:var(--paper-2);
+    border:1px solid var(--line);font-size:.95rem;color:var(--ink);
+    opacity:0;max-height:0;overflow:hidden;transition:.35s
+  }
+  .feedback.show{opacity:1;max-height:420px;margin-top:18px}
+  .feedback .verdict{font-weight:600;font-family:"Fraunces",serif;font-size:1.05rem;margin-bottom:6px;display:block}
+  .feedback .verdict.right{color:var(--teal-deep)}
+  .feedback .verdict.miss{color:var(--terra)}
+  .feedback a{color:var(--teal-deep);text-decoration:underline;text-underline-offset:2px}
+  .feedback .src{display:block;margin-top:10px;font-size:.8rem;color:var(--ink-soft)}
+  .qnav{display:flex;justify-content:flex-end;margin-top:20px}
+  .btn{
+    font:inherit;font-weight:600;font-size:.95rem;cursor:pointer;border:none;
+    background:var(--teal-deep);color:#fff;padding:12px 24px;border-radius:11px;transition:.18s
+  }
+  .btn:hover{background:var(--teal)}
+  .btn:disabled{background:var(--line);color:#fff;cursor:default}
+  .btn.ghost{background:transparent;color:var(--teal-deep);border:1.5px solid var(--line)}
+  .btn.ghost:hover{border-color:var(--teal);background:var(--paper)}
+
+  /* result */
+  .result{display:none;text-align:center;padding:8px 4px}
+  .result.show{display:block;animation:rise .5s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .score-ring{margin:6px auto 18px;width:132px;height:132px;position:relative}
+  .score-ring svg{transform:rotate(-90deg)}
+  .score-num{position:absolute;inset:0;display:grid;place-items:center;font-family:"Fraunces",serif;font-size:2.1rem;font-weight:600;color:var(--teal-deep)}
+  .result h3{font-size:1.6rem;margin-bottom:8px}
+  .result p{color:var(--ink-soft);max-width:46ch;margin:0 auto 16px}
+  .badge-line{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:6px}
+
+  /* reflection */
+  .reflect{background:linear-gradient(180deg,rgba(47,111,107,.07),var(--card));border:1px solid var(--line);border-radius:20px;padding:30px 26px;box-shadow:var(--shadow)}
+  .reflect ol{margin:14px 0 0;padding-left:0;list-style:none;counter-reset:r}
+  .reflect li{counter-increment:r;position:relative;padding:14px 0 14px 46px;border-top:1px solid var(--line)}
+  .reflect li:first-child{border-top:none}
+  .reflect li::before{
+    content:counter(r);position:absolute;left:0;top:13px;width:30px;height:30px;
+    border-radius:9px;background:var(--card);border:1.5px solid var(--gold);
+    display:grid;place-items:center;font-family:"Fraunces",serif;font-weight:600;color:var(--teal-deep);font-size:.95rem
+  }
+  .reflect li b{font-weight:600;color:var(--ink)}
+  .reflect li span{display:block;font-size:.9rem;color:var(--ink-soft);margin-top:2px}
+
+  /* resources */
+  .res-group{margin-bottom:30px}
+  .res-group h3{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .res-group h3 .pin{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:6px;background:var(--paper-2);color:var(--ink-soft)}
+  .rcard{
+    display:block;text-decoration:none;color:inherit;background:var(--card);
+    border:1px solid var(--line);border-radius:13px;padding:17px 19px;margin-bottom:11px;
+    transition:.18s;position:relative
+  }
+  .rcard:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--teal)}
+  .rcard .rt{font-family:"Fraunces",serif;font-size:1.08rem;font-weight:500;margin-bottom:3px;color:var(--ink);padding-right:24px}
+  .rcard .rby{font-size:.82rem;color:var(--terra);font-weight:600;margin-bottom:7px}
+  .rcard .rd{font-size:.92rem;color:var(--ink-soft);margin:0}
+  .rcard .arrow{position:absolute;top:17px;right:17px;color:var(--line);transition:.18s;font-size:1.1rem}
+  .rcard:hover .arrow{color:var(--teal);transform:translate(2px,-2px)}
+  .rcard.book{border-left:3px solid var(--gold)}
+  .nolink{cursor:default}
+  .nolink:hover{transform:none;box-shadow:none;border-color:var(--line)}
+  .nolink .arrow{display:none}
+
+  /* closing */
+  .closing{background:var(--teal-deep);color:#f6f1e7;border-radius:22px;padding:42px 30px;text-align:center;margin:10px 0}
+  .closing h2{color:#fff;margin-bottom:14px}
+  .closing p{color:rgba(246,241,231,.82);max-width:50ch;margin:0 auto}
+  .closing .sig{font-family:"Fraunces",serif;font-style:italic;font-size:1.15rem;color:var(--gold);margin-top:22px}
+
+  footer{padding:34px 0 60px;text-align:center;color:var(--ink-soft);font-size:.82rem}
+  footer a{color:var(--teal-deep)}
+
+  @media(max-width:620px){
+    .compare{grid-template-columns:1fr}
+    .compare .ldr{border-left:none;border-top:1px solid var(--line)}
+    .hero-inner{padding:54px 22px 44px}
+    .quiz-shell{padding:24px 18px}
+    .qtext{font-size:1.28rem}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">A Leadership Discovery</p>
+    <h1>You're already a leader.<br><span class="ital">Let's go find the proof.</span></h1>
+    <p class="dek">A short, playful walk through what really separates managing from leading — and a quiz to help you spot the leadership you're already practicing, with or without the title.</p>
+    <div class="for-line"><span class="dot"></span>Made for you to explore at your own pace · roughly 12 minutes</div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="wrap">
+    <p class="lede">Here's a question worth sitting with: if your job title changed tomorrow, would the way people turn to you change with it?</p>
+    <p>For a lot of us, "leader" and "manager" arrive in the same box — they get used interchangeably, and that overlap is real, not a mistake. But they're doing different jobs. One of the clearest ways to see it: <b>management is mostly about coping with complexity</b> — planning, organizing, keeping things steady and predictable. <b>Leadership is mostly about coping with change</b> — setting a direction, aligning people around it, and moving them to act.</p>
+    <p>The surprising part — the part that catches many thoughtful professionals off guard — is that the building blocks of leadership are deeply <em>human</em>: self-awareness, emotional intelligence, the ability to read a room and earn trust. These aren't soft extras. They're the engine. And none of them require a title to switch on.</p>
+    <p>So before any quiz scores you on anything, hold onto this frame: you're not studying for a promotion. You're noticing what you already do.</p>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare" style="padding-top:10px">
+  <div class="wrap">
+    <p class="sec-label">The two systems, side by side</p>
+    <h2>Managing keeps the ship steady. Leading decides where it sails.</h2>
+    <div class="compare">
+      <div class="mgr">
+        <div class="tag">The Manager's craft</div>
+        <ul>
+          <li><b>Copes with complexity</b> — brings order to chaos</li>
+          <li>Plans, budgets, organizes, staffs</li>
+          <li>Solves problems and controls for risk</li>
+          <li>Authority flows <b>from the role</b></li>
+          <li>Asks: <em>how do we get this done well?</em></li>
+        </ul>
+      </div>
+      <div class="ldr">
+        <div class="tag">The Leader's craft</div>
+        <ul>
+          <li><b>Copes with change</b> — moves people forward</li>
+          <li>Sets a vision and direction</li>
+          <li>Aligns and inspires through trust</li>
+          <li>Influence is <b>earned, person to person</b></li>
+          <li>Asks: <em>where are we going, and why?</em></li>
+        </ul>
+      </div>
+    </div>
+    <p class="overlap-note">The best people do both. A manager who can't lead just administers; a leader who can't manage can't deliver. The point isn't to pick a side — it's to see that you've been doing the leadership half all along.</p>
+
+    <div class="pq">
+      "Leadership is not about titles or the corner office. It's about the willingness to step up, put yourself out there, and lean into courage."
+      <cite>— Brené Brown, <em>Dare to Lead</em></cite>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="wrap">
+    <p class="sec-label">Discover it for yourself</p>
+    <h2>The leader-or-manager quiz</h2>
+    <p style="margin-bottom:26px">Eight quick prompts — a mix of multiple choice and true/false. There are no trick questions and no wrong way to be. Each answer opens a little window into the research, with a link if you want to go deeper.</p>
+
+    <div class="quiz-shell">
+      <!-- QUESTIONS render here -->
+      <div id="qzone">
+        <div class="quiz-top">
+          <span class="qcount" id="qcount">Question 1 of 8</span>
+          <span class="qtype mc" id="qtype">Multiple choice</span>
+        </div>
+        <div class="pbar"><span id="pbar"></span></div>
+        <p class="qtext" id="qtext"></p>
+        <div class="opts" id="opts"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="qnav">
+          <button class="btn" id="nextBtn" disabled>Next →</button>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="result" id="result">
+        <div class="score-ring">
+          <svg width="132" height="132" viewBox="0 0 132 132">
+            <circle cx="66" cy="66" r="58" fill="none" stroke="#efe7d7" stroke-width="11"/>
+            <circle id="ringFill" cx="66" cy="66" r="58" fill="none" stroke="url(#g)" stroke-width="11"
+                    stroke-linecap="round" stroke-dasharray="364" stroke-dashoffset="364"/>
+            <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2f6f6b"/><stop offset="1" stop-color="#caa14a"/>
+            </linearGradient></defs>
+          </svg>
+          <div class="score-num" id="scoreNum">0/8</div>
+        </div>
+        <p class="badge-line" id="badgeLine">Your leadership read</p>
+        <h3 id="resultTitle"></h3>
+        <p id="resultBody"></p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+          <button class="btn ghost" id="retryBtn">Take it again</button>
+          <button class="btn" onclick="document.getElementById('reflect').scrollIntoView()">Reflect on it →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section id="reflect">
+  <div class="wrap">
+    <p class="sec-label">From quiz to real life</p>
+    <h2>Four questions to carry into your week</h2>
+    <p>A score is just a doorway. These turn the ideas into something you can actually notice on a Tuesday afternoon.</p>
+    <div class="reflect">
+      <ol>
+        <li><b>Where did people follow your direction this month — without being required to?</b><span>That moment is "personal power" in action. Name it out loud. It counts, and it's the kind of authority a title only formalizes.</span></li>
+        <li><b>When you picture a "manager," what comes to mind first? And a "leader"?</b><span>Notice where the two blur for you. There's no right answer — your instinct about the overlap is worth examining, not correcting.</span></li>
+        <li><b>Internal or external self-awareness — which is your growth edge?</b><span>Knowing your own values and reactions is one skill. Knowing how others actually experience you is a different one. Most of us lean strong on one.</span></li>
+        <li><b>What are you waiting for permission to do — that you could simply begin?</b><span>Leadership often starts the moment you stop waiting to be appointed.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="wrap">
+    <p class="sec-label">Go deeper</p>
+    <h2>A small library, if you want to keep exploring</h2>
+    <p style="margin-bottom:28px">Everything the quiz drew from, plus a few classics worth your time. The articles are free reads; the books are the ones that keep showing up on every serious leadership list — for good reason.</p>
+
+    <div class="res-group">
+      <h3>The articles behind the quiz <span class="pin">Free reads</span></h3>
+
+      <a class="rcard" href="https://hbr.org/2018/01/what-self-awareness-really-is-and-how-to-cultivate-it" target="_blank" rel="noopener">
+        <div class="rt">What Self-Awareness Really Is (and How to Cultivate It)</div>
+        <div class="rby">Tasha Eurich · Harvard Business Review</div>
+        <p class="rd">The piece that reframes self-awareness as the meta-skill of modern leadership. Introduces internal vs. external self-awareness, and the humbling finding that most people who think they're self-aware aren't.</p>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="rcard" href="https://hbr.org/2004/01/managers-and-leaders-are-they-different" target="_blank" rel="noopener">
+        <div class="rt">Managers and Leaders: Are They Different?</div>
+        <div class="rby">Abraham Zaleznik · Harvard Business Review (the classic)</div>
+        <p class="rd">The 1977 article that started the whole conversation. Leaders advocate change and win commitment; managers advocate stability and exercise authority. Both matter — they're just different work.</p>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="rcard" href="https://online.hbs.edu/blog/post/emotional-intelligence-in-leadership" target="_blank" rel="noopener">
+        <div class="rt">Emotional Intelligence in Leadership: Why It's Important</div>
+        <div class="rby">Harvard Business School Online</div>
+        <p class="rd">A clean, practical map of EI's four competencies — self-awareness, self-management, social awareness, relationship management — and why technical skill without them quietly stalls a career.</p>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="rcard" href="https://davidburkus.com/2026/03/how-to-lead-without-a-title/" target="_blank" rel="noopener">
+        <div class="rt">How to Lead Without a Title</div>
+        <div class="rby">David Burkus</div>
+        <p class="rd">The distinction between <em>position power</em> (from the title) and <em>personal power</em> (from expertise, relationships, trust) — plus honest, practical moves for leading before you're appointed.</p>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="rcard" href="https://news.clearancejobs.com/2025/10/14/leading-from-behind-10-signs-youre-a-leader-even-without-the-corner-office/" target="_blank" rel="noopener">
+        <div class="rt">10 Signs You're a Leader (Even Without the Corner Office)</div>
+        <div class="rby">Steve Leonard · ClearanceJobs</div>
+        <p class="rd">A reflective checklist of the quiet behaviors — stepping up, staying calm in chaos, owning mistakes, lifting others — that mark a leader regardless of where they sit on the org chart.</p>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+
+    <div class="res-group">
+      <h3>Books to live with <span class="pin">For the long game</span></h3>
+
+      <a class="rcard book" href="https://brenebrown.com/book/dare-to-lead/" target="_blank" rel="noopener">
+        <div class="rt">Dare to Lead</div>
+        <div class="rby">Brené Brown</div>
+        <p class="rd">Leadership as courage, vulnerability, and honest conversation rather than authority. Warm, story-rich, and built on two decades of research. The natural home base for the "lead from who you are" idea.</p>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="rcard book" href="https://www.leadershipchallenge.com/" target="_blank" rel="noopener">
+        <div class="rt">The Leadership Challenge</div>
+        <div class="rby">James Kouzes & Barry Posner</div>
+        <p class="rd">Thirty years of research distilled into five practices any person can use — at any level. Its through-line says it all: leadership isn't about being in charge, it's about taking care of those in your charge.</p>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="rcard book" href="https://simonsinek.com/books/leaders-eat-last/" target="_blank" rel="noopener">
+        <div class="rt">Leaders Eat Last</div>
+        <div class="rby">Simon Sinek</div>
+        <p class="rd">Why the leaders people actually follow create safety and trust first. Drawn from the Marines, biology, and business — a compelling case that leadership is service, not status.</p>
+        <span class="arrow">↗</span>
+      </a>
+
+      <a class="rcard book" href="https://www.danielgoleman.info/topics/emotional-intelligence/" target="_blank" rel="noopener">
+        <div class="rt">Primal Leadership</div>
+        <div class="rby">Daniel Goleman, Richard Boyatzis & Annie McKee</div>
+        <p class="rd">The deep dive on emotional intelligence as the foundation of great leadership — the research backbone behind so much of what the quiz touched on.</p>
+        <span class="arrow">↗</span>
+      </a>
+
+      <div class="rcard book nolink">
+        <div class="rt">Insight</div>
+        <div class="rby">Tasha Eurich</div>
+        <p class="rd">If the HBR self-awareness article resonates, this is the full book behind it — a practical, research-backed guide to seeing yourself clearly and getting honest feedback from "loving critics."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section style="padding-top:6px">
+  <div class="wrap">
+    <div class="closing">
+      <h2>The title is a formality. The leadership is already yours.</h2>
+      <p>A promotion can hand you authority. It can't hand you the trust, the self-awareness, or the way people already look to you when things get uncertain. You built those. Keep building them — and let the title catch up.</p>
+      <div class="sig">Lead like it's already true. Because it is.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Created as a personal leadership exploration · Sources linked throughout are free to read.<br>
+    Quotes are paraphrased or briefly excerpted; follow the links for each author's full words.
+  </div>
+</footer>
+
+<script>
+/* ---------------- QUIZ DATA ---------------- */
+const QUESTIONS = [
+  {
+    type:"mc",
+    q:"A teammate is melting down before a big deadline. Which response is the more distinctly <em>leadership</em> move?",
+    options:[
+      "Re-assign their tasks and tighten the project plan to absorb the risk",
+      "Notice what they're feeling, steady them, and reconnect them to why the work matters",
+      "Escalate to whoever holds formal authority over the deadline",
+      "Document the slip so it's on record for later"
+    ],
+    answer:1,
+    right:"Yes — that's leadership. Reading the emotion in the room and re-anchoring people to purpose is emotional intelligence at work, and it's the leader's craft.",
+    miss:"Those are real <em>management</em> moves — useful, but about controlling complexity. The leadership move is reading the emotion and reconnecting the person to purpose.",
+    src:["Emotional Intelligence in Leadership — HBS Online","https://online.hbs.edu/blog/post/emotional-intelligence-in-leadership"]
+  },
+  {
+    type:"tf",
+    q:"True or false: self-awareness is a 'soft' personality trait, not a core leadership skill.",
+    options:["True","False"],
+    answer:1,
+    right:"False — exactly. Research frames self-awareness as a foundational leadership skill: people who see themselves clearly make sounder decisions, build stronger relationships, and lead more effectively.",
+    miss:"It's false. Self-awareness isn't a soft extra — research positions it as a foundational leadership skill tied to better decisions, stronger relationships, and more effective leadership.",
+    src:["What Self-Awareness Really Is — Tasha Eurich, HBR","https://hbr.org/2018/01/what-self-awareness-really-is-and-how-to-cultivate-it"]
+  },
+  {
+    type:"mc",
+    q:"Eurich's research describes <em>two</em> kinds of self-awareness. Which pair?",
+    options:[
+      "Confidence and humility",
+      "Internal (how you see yourself) and external (how others see you)",
+      "Emotional and logical",
+      "Private and public reputation"
+    ],
+    answer:1,
+    right:"Right. Internal self-awareness is understanding your own values and reactions; external is grasping how others actually experience you — and being strong in one doesn't predict the other.",
+    miss:"It's internal vs. external. Internal is knowing your own values and reactions; external is knowing how others experience you. Strikingly, being high on one doesn't predict the other.",
+    src:["What Self-Awareness Really Is — Tasha Eurich, HBR","https://hbr.org/2018/01/what-self-awareness-really-is-and-how-to-cultivate-it"]
+  },
+  {
+    type:"mc",
+    q:"Classic HBR framing: management is about coping with ___, and leadership is about coping with ___.",
+    options:[
+      "people … profit",
+      "the present … the future",
+      "complexity … change",
+      "tasks … meetings"
+    ],
+    answer:2,
+    right:"That's the one. Management copes with complexity — order, planning, predictability. Leadership copes with change — vision, alignment, movement.",
+    miss:"The classic pairing is complexity and change. Management brings order to complexity; leadership moves people through change.",
+    src:["Managers and Leaders: Are They Different? — Zaleznik, HBR","https://hbr.org/2004/01/managers-and-leaders-are-they-different"]
+  },
+  {
+    type:"tf",
+    q:"True or false: you need a formal title before you can genuinely lead.",
+    options:["True","False"],
+    answer:1,
+    right:"False — and this is the heart of it. You don't need formal authority to take on a leadership role. People follow personal power — expertise, relationships, trust — long before any title appears.",
+    miss:"It's false. Leadership doesn't wait for a title. People follow personal power — expertise, relationships, and trust — which you can build right where you are.",
+    src:["How to Lead Without a Title — David Burkus","https://davidburkus.com/2026/03/how-to-lead-without-a-title/"]
+  },
+  {
+    type:"mc",
+    q:"What's the difference between <em>position power</em> and <em>personal power</em>?",
+    options:[
+      "Position power is earned; personal power is given",
+      "Position power comes from the title; personal power comes from expertise, relationships and trust",
+      "They're two words for the same thing",
+      "Personal power only matters once you're a manager"
+    ],
+    answer:1,
+    right:"Exactly. Position power is handed to you by the role. Personal power you build yourself — and it's what makes people <em>want</em> to follow rather than simply comply.",
+    miss:"Position power comes from the title; personal power is built from expertise, relationships, and trustworthiness. The second is why people follow by choice, not obligation.",
+    src:["How to Lead Without a Title — David Burkus","https://davidburkus.com/2026/03/how-to-lead-without-a-title/"]
+  },
+  {
+    type:"mc",
+    q:"You want people to genuinely commit to an initiative you can't <em>order</em> them to support. The most effective first move?",
+    options:[
+      "Assign clear tasks and deadlines to everyone involved",
+      "Bring people in early, ask more than you tell, and build shared ownership",
+      "Wait until you have the authority to require it",
+      "Present a finished plan so there's nothing to debate"
+    ],
+    answer:1,
+    right:"Yes. Without positional power, commitment beats compliance — and commitment comes from involving people early and creating real shared ownership.",
+    miss:"When you can't command, you need commitment, not compliance — and that comes from bringing people in early and building shared ownership, not handing down a finished plan.",
+    src:["How to Lead Effectively When You Lack Authority — Entrepreneur","https://www.entrepreneur.com/leadership/how-to-lead-effectively-when-you-lack-authority/504372"]
+  },
+  {
+    type:"tf",
+    q:"True or false: in Brené Brown's view, vulnerability is a weakness a leader should hide.",
+    options:["True","False"],
+    answer:1,
+    right:"False — and beautifully so. Brown's whole argument is that vulnerability is the birthplace of courage. Daring leadership means showing up when you can't control the outcome.",
+    miss:"It's false. For Brown, vulnerability isn't weakness — it's the source of courage. Daring leaders show up precisely when the outcome isn't guaranteed.",
+    src:["Dare to Lead — Brené Brown","https://brenebrown.com/book/dare-to-lead/"]
+  }
+];
+
+/* ---------------- QUIZ ENGINE ---------------- */
+let qi = 0, score = 0, answered = false;
+const $ = id => document.getElementById(id);
+
+function renderQuestion(){
+  answered = false;
+  const item = QUESTIONS[qi];
+  $('qcount').textContent = `Question ${qi+1} of ${QUESTIONS.length}`;
+  const tEl = $('qtype');
+  tEl.textContent = item.type === 'tf' ? 'True / False' : 'Multiple choice';
+  tEl.className = 'qtype ' + (item.type === 'tf' ? 'tf' : 'mc');
+  $('pbar').style.width = ((qi)/QUESTIONS.length*100) + '%';
+  $('qtext').innerHTML = item.q;
+  $('feedback').className = 'feedback';
+  $('feedback').innerHTML = '';
+  $('nextBtn').disabled = true;
+  $('nextBtn').textContent = (qi === QUESTIONS.length-1) ? 'See your result →' : 'Next →';
+
+  const opts = $('opts');
+  opts.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  item.options.forEach((opt, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt' + (item.type==='tf' ? ' tf' : '');
+    b.innerHTML = `<span class="key">${item.type==='tf' ? (i===0?'T':'F') : letters[i]}</span><span>${opt}</span>`;
+    b.onclick = () => choose(i, b);
+    opts.appendChild(b);
+  });
+}
+
+function choose(i, btn){
+  if(answered) return;
+  answered = true;
+  const item = QUESTIONS[qi];
+  const all = document.querySelectorAll('#opts .opt');
+  const correct = (i === item.answer);
+  if(correct) score++;
+
+  all.forEach((el, idx) => {
+    el.setAttribute('disabled','');
+    if(idx === item.answer) el.classList.add('correct');
+    else if(idx === i) el.classList.add('wrong');
+    else el.classList.add('dim');
+  });
+
+  const fb = $('feedback');
+  fb.innerHTML =
+    `<span class="verdict ${correct?'right':'miss'}">${correct?'✦ Nicely done.':'A useful distinction.'}</span>` +
+    (correct ? item.right : item.miss) +
+    `<span class="src">Explore: <a href="${item.src[1]}" target="_blank" rel="noopener">${item.src[0]} ↗</a></span>`;
+  fb.classList.add('show');
+  $('nextBtn').disabled = false;
+}
+
+$('nextBtn').onclick = () => {
+  if(qi < QUESTIONS.length-1){ qi++; renderQuestion(); $('quiz').scrollIntoView({block:'start'}); }
+  else showResult();
+};
+
+function showResult(){
+  $('qzone').style.display = 'none';
+  const res = $('result');
+  res.classList.add('show');
+  $('pbar').style.width = '100%';
+
+  // ring
+  const pct = score/QUESTIONS.length;
+  const circ = 364;
+  $('ringFill').style.strokeDashoffset = circ - circ*pct;
+  $('scoreNum').textContent = `${score}/${QUESTIONS.length}`;
+
+  let title, body;
+  if(score >= 7){
+    title = "You see leadership clearly.";
+    body = "You've internalized the real distinction — leadership is human, relational, and yours to practice now. The promotion would simply give a name to what you already do.";
+  } else if(score >= 5){
+    title = "You're reading the signal well.";
+    body = "You've got the core idea: leadership lives in self-awareness, trust, and influence — not in a title. A few nuances to keep exploring, and the library below is the perfect next step.";
+  } else {
+    title = "You're at the start of something.";
+    body = "These distinctions are subtle on purpose — and noticing them is itself a leadership act. Wander through the resources below; the ideas tend to click on the second pass.";
+  }
+  $('resultTitle').textContent = title;
+  $('resultBody').textContent = body;
+}
+
+$('retryBtn').onclick = () => {
+  qi = 0; score = 0;
+  $('result').classList.remove('show');
+  $('qzone').style.display = 'block';
+  $('ringFill').style.strokeDashoffset = 364;
+  renderQuestion();
+  $('quiz').scrollIntoView({block:'start'});
+};
+
+renderQuestion();
+</script>
+</body>
+</html>
